@@ -1,0 +1,89 @@
+{
+	"name": "@technologiestiftung/ki-anfrage-docs-scraper",
+	"version": "0.1.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "ff6347 <hash@ff6347.email>",
+	"license": "MIT",
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "20.4.9",
+		"@types/progress": "2.0.5",
+		"@types/xml2js": "0.4.11",
+		"@typescript-eslint/eslint-plugin": "6.3.0",
+		"@typescript-eslint/parser": "6.3.0",
+		"eslint": "8.46.0",
+		"eslint-config-prettier": "9.0.0",
+		"prettier": "3.0.1",
+		"tsx": "3.12.7",
+		"typescript": "5.1.6"
+	},
+	"eslintConfig": {
+		"env": {
+			"es2021": true,
+			"node": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended"
+		],
+		"overrides": [
+			{
+				"env": {
+					"node": true
+				},
+				"files": [
+					".eslintrc.{js,cjs}"
+				],
+				"parserOptions": {
+					"sourceType": "script"
+				}
+			}
+		],
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"ecmaVersion": "latest",
+			"sourceType": "module"
+		},
+		"plugins": [
+			"@typescript-eslint"
+		],
+		"rules": {
+			"indent": [
+				"error",
+				"tab"
+			],
+			"linebreak-style": [
+				"error",
+				"unix"
+			],
+			"quotes": [
+				"error",
+				"double"
+			],
+			"semi": [
+				"error",
+				"always"
+			]
+		}
+	},
+	"prettier": {
+		"tabWidth": 2,
+		"semi": true,
+		"singleQuote": false,
+		"useTabs": true,
+		"printWidth": 80
+	},
+	"dependencies": {
+		"postgres": "3.3.5",
+		"progress": "2.0.3",
+		"xml2js": "0.6.2"
+	}
+}
