@@ -14,6 +14,7 @@
 		"node": ">=20.0.0"
 	},
 	"devDependencies": {
+		"@technologiestiftung/semantic-release-config": "1.2.3",
 		"@types/node": "20.4.9",
 		"@types/progress": "2.0.5",
 		"@types/xml2js": "0.4.11",
@@ -80,6 +81,15 @@
 		"singleQuote": false,
 		"useTabs": true,
 		"printWidth": 80
+	},
+	"release": {
+		"extends": "@technologiestiftung/semantic-release-config",
+		"npmPublish": false,
+		"branches": [
+			{
+				"name": "main"
+			}
+		]
 	},
 	"dependencies": {
 		"postgres": "3.3.5",
