@@ -117,7 +117,7 @@ try {
 }
 function help() {
 	console.log(
-		`Usage: node index.js -f <file> [-d <database-url>] [-h] [-p] [-v] [-w]
+		`Usage: npx tsx index.ts -f <file> [-d <database-url>] [-h] [-p] [-v] [-w]
 Options:
 -d, --database-url <url>\tURL of the database to connect to
 \t\t\t\t(default: postgres://postgres:postgres@localhost:5432/postgres).
@@ -133,13 +133,13 @@ Examples:
 
 Write data to database using default database url postgres://postgres:postgres@localhost:5432/postgres
 
-\tnode index.js --file data/pardok-wp19.xml --write-to-db
+\tnpx tsx index.ts --file data/pardok-wp19.xml --write-to-db
 
 ---
 
 Write data to json file and pretty print it
 
-\tnode index.js --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
+\tnpx tsx index.ts --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
 
 `,
 	);
