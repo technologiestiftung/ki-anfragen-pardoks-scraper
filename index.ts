@@ -2,6 +2,7 @@
 import { parseArgs } from "node:util";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
+import { basename } from "node:path";
 import { parseStringPromise } from "xml2js";
 import { ParDoks } from "./lib/common.js";
 import { db } from "./lib/db.js";
@@ -86,7 +87,11 @@ try {
 			} else {
 				DATABASE_URL = values["database-url"];
 			}
-			await db({ parDoks: json, url: DATABASE_URL });
+			await db({
+				parDoks: json,
+				url: DATABASE_URL,
+				filename: basename(values.file),
+			});
 		}
 	}
 } catch (error: unknown) {

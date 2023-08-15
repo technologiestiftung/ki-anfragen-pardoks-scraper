@@ -17,14 +17,22 @@ function checkIfArray(value: string | string[] | undefined | null) {
 
 	return value ?? null;
 }
-export async function db({ parDoks, url }: { parDoks: ParDoks; url: string }) {
+export async function db({
+	parDoks,
+	url,
+	filename,
+}: {
+	parDoks: ParDoks;
+	url: string;
+	filename: string;
+}) {
 	// Create a new database object
 	const sql = postgres(url);
 
 	try {
 		// Call the insertParDoks function with your ParDoks object
 		const exportResult = await sql`
-      INSERT INTO export (aktualisiert) VALUES (${parDoks.Export.$.aktualisiert}) RETURNING id
+      INSERT INTO export (aktualisiert, filename) VALUES (${parDoks.Export.$.aktualisiert},${filename}) RETURNING id
     `;
 
 		// Create a new progress bar with the length of the Vorgang array
