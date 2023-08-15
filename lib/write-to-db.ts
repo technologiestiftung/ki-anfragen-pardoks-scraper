@@ -2,22 +2,9 @@
 import { ParDoks, Vorgang } from "./common.js";
 import postgres from "postgres";
 import progress from "progress";
+import { checkIfArray } from "./utils.js";
 
-/**
- * This function checks if the provided value is an array.
- * If it is, it joins the array elements into a string separated by commas.
- * If it's not an array but a string, it simply returns the string.
- * If the value is undefined or null, it returns null.
- *
- */
-function checkIfArray(value: string | string[] | undefined | null) {
-	if (Array.isArray(value)) {
-		return value.join(",");
-	}
-
-	return value ?? null;
-}
-export async function db({
+export async function write2DB({
 	parDoks,
 	url,
 	filename,

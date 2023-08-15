@@ -3,9 +3,9 @@ import { parseArgs } from "node:util";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
-import { parseStringPromise } from "xml2js";
-import { ParDoks } from "./lib/common.js";
-import { db } from "./lib/db.js";
+import { write2DB } from "./lib/write-to-db.js";
+import { usage } from "./lib/usage.js";
+import { parseXML2JSON } from "./lib/parse-xml-to-json.js";
 
 try {
 	const { values } = parseArgs({
@@ -43,7 +43,7 @@ try {
 	}
 	// write the help output that explasins how to use the program
 	if (values.help) {
-		help();
+		usage();
 	}
 
 	// check if the file provided by te user via the flag -f exsists
@@ -58,9 +58,7 @@ try {
 	}
 
 	const xml = await readFile(values.file, "utf-8");
-	const json = (await parseStringPromise(xml, {
-		explicitArray: true,
-	})) as ParDoks;
+	const json = await parseXML2JSON(xml);
 
 	if (!values["write-to-db"]) {
 		if (values.pretty) {
@@ -87,7 +85,7 @@ try {
 			} else {
 				DATABASE_URL = values["database-url"];
 			}
-			await db({
+			await write2DB({
 				parDoks: json,
 				url: DATABASE_URL,
 				filename: basename(values.file),
@@ -113,35 +111,5 @@ try {
 			}
 		}
 	}
-	help();
-}
-function help() {
-	console.log(
-		`Usage: npx tsx index.ts -f <file> [-d <database-url>] [-h] [-p] [-v] [-w]
-Options:
--d, --database-url <url>\tURL of the database to connect to
-\t\t\t\t(default: postgres://postgres:postgres@localhost:5432/postgres).
-\t\t\t\tTries to use the DATABASE_URL environment variable
-\t\t\t\tif write-to-db is true and no url is provided
--f, --file <path>\t\tPath to the XML file to parse (required)
--h, --help\t\t\tPrint this help message and exit 0
--p, --pretty\t\t\tPretty-print the output JSON (only if not wirting to db)
--v, --version\t\t\tPrint the version number and exit 0
--w, --write-to-db\t\tWrite the parsed data to the database
-
-Examples:
-
-Write data to database using default database url postgres://postgres:postgres@localhost:5432/postgres
-
-\tnpx tsx index.ts --file data/pardok-wp19.xml --write-to-db
-
----
-
-Write data to json file and pretty print it
-
-\tnpx tsx index.ts --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
-
-`,
-	);
-	process.exit(0);
+	usage();
 }
