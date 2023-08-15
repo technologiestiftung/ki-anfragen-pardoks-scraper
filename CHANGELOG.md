@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/technologiestiftung/ki-anfrage-pardoks-scraper/compare/v1.0.0...v1.0.1) (2023-08-15)
+
+
+### Bug Fixes
+
+* call command in help ([ce14623](https://github.com/technologiestiftung/ki-anfrage-pardoks-scraper/commit/ce14623805ab257584ca0064104bf6d748d0a743))
+
 # 1.0.0 (2023-08-15)
 
 
