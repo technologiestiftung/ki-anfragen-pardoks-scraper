@@ -6,37 +6,48 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
 
-- [ ] Do you want to honor all kinds of contributions? Use [all-contributors](https://allcontributors.org/)
-
-```bash
-npx all-contributors-cli check
-npx all-contributors-cli add ff6347 doc
-```
-
-You can use it on GitHub just by commenting on PRs and issues:
-
-```plain
-@all-contributors please add @ff6347 for infrastructure, tests and code
-```
-
-- [ ] Add your project description
-- [ ] Get fancy shields at https://shields.io
+<!-- ALL-CONTRIBUTORS-BADGE:END  -->
 
 ## Prerequisites
 
-tbd...
+- [Node.js](https://nodejs.org/en/) (>= 18.0.0)
+- Supabase project (ar at least a Postgres data base) see https://github.com/technologiestiftung/ki-anfragen-supabase
 
 ## Installation
 
-tbd...
+```bash
+npm ci
+```
 
-## Usage or Deployment
+## Usage
 
-tbd...
+```plain
+Usage: npx tsx index.ts -f <file> [-d <database-url>] [-h] [-p] [-v] [-w]
+Options:
+-d, --database-url <url>	URL of the database to connect to
+				(default: postgres://postgres:postgres@localhost:5432/postgres).
+				Tries to use the DATABASE_URL environment variable
+				if write-to-db is true and no url is provided
+-f, --file <path>		Path to the XML file to parse (required)
+-h, --help			Print this help message and exit 0
+-p, --pretty			Pretty-print the output JSON (only if not wirting to db)
+-v, --version			Print the version number and exit 0
+-w, --write-to-db		Write the parsed data to the database
+
+Examples:
+
+Write data to database using default database url postgres://postgres:postgres@localhost:5432/postgres
+
+	node index.js --file data/pardok-wp19.xml --write-to-db
+
+---
+
+Write data to json file and pretty print it
+
+	node index.js --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
+```
 
 ## Development
-
-tbd...
 
 ## Tests
 
@@ -68,8 +79,6 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 ## Content Licensing
 
 Texts and content available as [CC BY](https://creativecommons.org/licenses/by/3.0/de/).
-
-Illustrations by {MARIA_MUSTERFRAU}, all rights reserved.
 
 ## Credits
 
