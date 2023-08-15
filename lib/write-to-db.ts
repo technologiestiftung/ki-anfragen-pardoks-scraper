@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 import { ParDoks, Vorgang } from "./common.js";
-import postgres from "postgres";
 import progress from "progress";
 import { checkIfArray } from "./utils.js";
+import { connectDB } from "./sql.js";
 
 export async function write2DB({
 	parDoks,
@@ -13,9 +13,8 @@ export async function write2DB({
 	url: string;
 	filename: string;
 }) {
-	// Create a new database object
-	const sql = postgres(url);
-
+	// Create a new database connection
+	const sql = connectDB(url);
 	try {
 		// Call the insertParDoks function with your ParDoks object
 		const exportResult = await sql`
