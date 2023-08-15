@@ -3,7 +3,9 @@
 ![](https://img.shields.io/badge/Built%20with%20%E2%9D%A4%EF%B8%8F-at%20Technologiestiftung%20Berlin-blue)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END  -->
 
 ## Prerequisites
@@ -36,13 +38,13 @@ Examples:
 
 Write data to database using default database url postgres://postgres:postgres@localhost:5432/postgres
 
-	node index.js --file data/pardok-wp19.xml --write-to-db
+	npx tsx index.ts --file data/pardok-wp19.xml --write-to-db
 
 ---
 
 Write data to json file and pretty print it
 
-	node index.js --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
+	npx tsx index.ts --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
 ```
 
 ## Development
