@@ -32,7 +32,7 @@ export async function db({
 	try {
 		// Call the insertParDoks function with your ParDoks object
 		const exportResult = await sql`
-      INSERT INTO export (aktualisiert, filename) VALUES (${parDoks.Export.$.aktualisiert},${filename}) RETURNING id
+INSERT INTO export (aktualisiert, filename) VALUES (${parDoks.Export.$.aktualisiert},${filename}) RETURNING id
     `;
 
 		// Create a new progress bar with the length of the Vorgang array
@@ -41,8 +41,8 @@ export async function db({
 		});
 		for (const vorgang of parDoks.Export.Vorgang) {
 			const vorgangResult = await sql`
-		    INSERT INTO vorgang (VNr, VFunktion, ReihNr, VTyp, VTypL, VSys, VSysL, VIR, export_id)
-		    VALUES (${checkIfArray(vorgang.VNr)}, ${checkIfArray(
+				INSERT INTO vorgang (VNr, VFunktion, ReihNr, VTyp, VTypL, VSys, VSysL, VIR, export_id)
+				VALUES (${checkIfArray(vorgang.VNr)}, ${checkIfArray(
 					vorgang.VFunktion,
 				)}, ${checkIfArray(vorgang.ReihNr)}, ${checkIfArray(
 					vorgang.VTyp,
