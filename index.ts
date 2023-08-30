@@ -66,6 +66,10 @@ try {
 	const json = await parseXML2JSON(xml);
 
 	if (values["update-db"]) {
+		if (!values["database-url"]) {
+			console.error("No database url provided via flag --database-url");
+			process.exit(1);
+		}
 		await applyDiff(json, values["database-url"]!);
 		process.exit(0);
 	} else {
@@ -100,6 +104,7 @@ try {
 					url: DATABASE_URL,
 					filename: basename(values.file),
 				});
+				process.exit(0);
 			}
 		}
 	}

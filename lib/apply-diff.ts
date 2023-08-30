@@ -9,13 +9,35 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 
 	try {
 		const dbExport = await sql`select * from export;`;
+		if (!dbExport || dbExport.length === 0) {
+			throw new Error("No export found in database.");
+		}
+
+		// Check if update times are okay
+		const newPardoksUpdatedAt = new Date(
+			newParDoks.Export.$.aktualisiert,
+		).getTime();
+		const remoteUpdatedAt = new Date(dbExport[0].aktualisiert).getTime();
+
+		if (newPardoksUpdatedAt < remoteUpdatedAt) {
+			throw new Error(
+				"Export update time in database is more recent than local update time. Refusing to update.",
+			);
+		}
+
+		const updatedDiffDays =
+			(newPardoksUpdatedAt - remoteUpdatedAt) / 1000 / 60 / 60 / 24;
+		console.log(
+			`Remote database is behind local file by ${Math.round(
+				updatedDiffDays,
+			)} days...`,
+		);
 
 		console.log("Loading local and remote Vorgangs...");
 		// Get all undeleted local Vorgangs
 		const undeletedLocalVorgangs = newParDoks.Export.Vorgang.filter((v) => {
 			return (
-				newParDoks.Export.Vorgang.filter((vv) => vv.VNr[0] === v.VNr[0])
-					.length == 2 && !v.VFunktion
+				!v.VFunktion || v.VFunktion.length === 0 || v.VFunktion[0] !== "delete"
 			);
 		});
 
@@ -37,6 +59,7 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 				undeletedRemoteVorgangs.filter((v) => v.vnr === lv.VNr[0]).length === 0
 			);
 		});
+
 		// Deleting Vorgangs in database
 		if (remoteVorgangsToDelete.length === 0) {
 			console.log("No Vorgangs to delete in database...");
@@ -59,6 +82,9 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 			console.log(`Adding local Vorgangs to database...`);
 			await insertVorgangs(localVorgangsToAddToRemote, dbExport[0].id, dbUrl);
 		}
+
+		// Set new update time to export
+		await sql`update export set aktualisiert = ${newParDoks.Export.$.aktualisiert} where id = ${dbExport[0].id}`;
 	} catch (error) {
 		console.error(error);
 	} finally {

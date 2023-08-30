@@ -89,25 +89,10 @@ export async function write2DB({
 		const exportResult =
 			await sql`INSERT INTO export (aktualisiert, filename) VALUES (${parDoks.Export.$.aktualisiert},${filename}) RETURNING id`;
 
-		await insertVorgangs(parDoks.Export.Vorgang, exportResult[0].id, url);
-
-		interface Row extends Vorgang {
-			id: number;
-		}
-		console.log("cleaning up database might take some time...");
-		const rowsToDelete = await sql<Row[]>`SELECT v1.*
-			FROM public.vorgang v1
-			JOIN public.vorgang v2 ON v1.vnr = v2.vnr
-			WHERE v1.vfunktion = 'delete'
-			AND v2.vfunktion IS NULL;`;
-		// Create a new progress bar with the length of the Vorgang array
-		const progressBarDelete = new progress(":bar :current/:total", {
-			total: rowsToDelete.length,
-		});
-		for (const row of rowsToDelete) {
-			await sql`DELETE FROM public.vorgang WHERE id = ${row.id}`;
-			progressBarDelete.tick();
-		}
+		const undeletedVorgangs = parDoks.Export.Vorgang.filter(
+			(vorgang) => !vorgang.VFunktion || vorgang.VFunktion[0] !== "delete",
+		);
+		await insertVorgangs(undeletedVorgangs, exportResult[0].id, url);
 	} catch (error) {
 		console.error(error);
 	} finally {
