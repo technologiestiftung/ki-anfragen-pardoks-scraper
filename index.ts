@@ -6,6 +6,7 @@ import { basename } from "node:path";
 import { write2DB } from "./lib/write-to-db.js";
 import { usage } from "./lib/usage.js";
 import { parseXML2JSON } from "./lib/parse-xml-to-json.js";
+import { applyDiff } from "./lib/apply-diff.js";
 
 try {
 	const { values } = parseArgs({
@@ -25,6 +26,10 @@ try {
 			"write-to-db": {
 				type: "boolean",
 				short: "w",
+			},
+			"apply-diff": {
+				type: "boolean",
+				short: "a",
 			},
 			"database-url": {
 				type: "string",
@@ -60,36 +65,42 @@ try {
 	const xml = await readFile(values.file, "utf-8");
 	const json = await parseXML2JSON(xml);
 
-	if (!values["write-to-db"]) {
-		if (values.pretty) {
-			console.log(JSON.stringify(json, null, 2));
-		} else {
-			console.log(JSON.stringify(json));
-		}
+	if (values["apply-diff"]) {
+		await applyDiff(json, values["database-url"]!);
+		process.exit(0);
 	} else {
-		//  uses the value from values[database-url]. If this is not check if the environment variable DATABASE_URL is set. If this is not set use the default value
-
-		let DATABASE_URL = "postgres://postgres:postgres@localhost:5432/postgres";
-		if (values["write-to-db"]) {
-			if (!values["database-url"]) {
-				console.warn("No database url provided via flag --database-url");
-				console.warn("Trying to use DATABASE_URL environment variable");
-				if (!process.env.DATABASE_URL) {
-					console.warn("No DATABASE_URL environment variable provided");
-					console.warn(
-						"Will try default value of postgres://postgres:postgres@localhost:5432/postgres",
-					);
-				} else {
-					DATABASE_URL = process.env.DATABASE_URL;
-				}
+		if (!values["write-to-db"]) {
+			if (values.pretty) {
+				console.log(JSON.stringify(json, null, 2));
 			} else {
-				DATABASE_URL = values["database-url"];
+				console.log(JSON.stringify(json));
 			}
-			await write2DB({
-				parDoks: json,
-				url: DATABASE_URL,
-				filename: basename(values.file),
-			});
+		} else {
+			//  uses the value from values[database-url]. If this is not check if the environment variable DATABASE_URL is set. If this is not set use the default value
+
+			let DATABASE_URL =
+				"postgres://postgres:postgres@localhost:54322/postgres";
+			if (values["write-to-db"]) {
+				if (!values["database-url"]) {
+					console.warn("No database url provided via flag --database-url");
+					console.warn("Trying to use DATABASE_URL environment variable");
+					if (!process.env.DATABASE_URL) {
+						console.warn("No DATABASE_URL environment variable provided");
+						console.warn(
+							"Will try default value of postgres://postgres:postgres@localhost:5432/postgres",
+						);
+					} else {
+						DATABASE_URL = process.env.DATABASE_URL;
+					}
+				} else {
+					DATABASE_URL = values["database-url"];
+				}
+				await write2DB({
+					parDoks: json,
+					url: DATABASE_URL,
+					filename: basename(values.file),
+				});
+			}
 		}
 	}
 } catch (error: unknown) {
