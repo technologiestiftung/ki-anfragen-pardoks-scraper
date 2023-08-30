@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.0.1...v1.1.0) (2023-08-30)
+
+
+### Features
+
+* diff script ([#5](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/issues/5)) ([dc2320b](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/dc2320b44cdb5a431d28b1590786b0f7baee78ca))
+
 ## [1.0.1](https://github.com/technologiestiftung/ki-anfrage-pardoks-scraper/compare/v1.0.0...v1.0.1) (2023-08-15)
 
 
