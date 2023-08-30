@@ -87,6 +87,7 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 		await sql`update export set aktualisiert = ${newParDoks.Export.$.aktualisiert} where id = ${dbExport[0].id}`;
 	} catch (error) {
 		console.error(error);
+		process.exit(1);
 	} finally {
 		sql.end();
 	}
