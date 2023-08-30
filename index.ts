@@ -27,9 +27,9 @@ try {
 				type: "boolean",
 				short: "w",
 			},
-			"apply-diff": {
+			"update-db": {
 				type: "boolean",
-				short: "a",
+				short: "u",
 			},
 			"database-url": {
 				type: "string",
@@ -65,7 +65,7 @@ try {
 	const xml = await readFile(values.file, "utf-8");
 	const json = await parseXML2JSON(xml);
 
-	if (values["apply-diff"]) {
+	if (values["update-db"]) {
 		await applyDiff(json, values["database-url"]!);
 		process.exit(0);
 	} else {
