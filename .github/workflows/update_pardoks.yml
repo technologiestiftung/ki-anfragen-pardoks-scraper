@@ -17,6 +17,5 @@ jobs:
       - name: Apply PARDOK XML Diff
         run: |
           npm ci
-          npm install -g npx
           curl https://www.parlament-berlin.de/opendata/pardok-wp19.xml > pardok-wp19.xml
           npx tsx index.ts -f pardok-wp19.xml -d postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }} --update-db
