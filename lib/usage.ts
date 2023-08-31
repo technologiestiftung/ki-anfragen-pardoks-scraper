@@ -13,6 +13,7 @@ Options:
 -w, --write-to-db\t\tWrite the parsed data to the database
 -u, --update-db\t\tUpdate the database based on a newer XML
 --dry-run\t\tRuns the update-db script without committing the changes to the database, see output to check which Vorgangs would be added or deleted
+--allow-deletion\t\tRuns the update-db script with explicitly saying that deleting Vorgangs is okay
 
 Examples:
 
@@ -29,7 +30,7 @@ Write data to json file and pretty print it
 --- 
 
 Update database based on a newer XML:
-\tnpx tsx index.ts -f wp19-new.xml -d postgres://postgres:postgres@localhost:54322/postgres --update-db
+\tnpx tsx index.ts -f wp19-new.xml -d postgres://postgres:postgres@localhost:54322/postgres --update-db --allow-deletion
 `,
 	);
 	process.exit(0);

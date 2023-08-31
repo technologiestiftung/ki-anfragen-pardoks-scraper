@@ -8,6 +8,7 @@ export async function applyDiff(
 	newParDoks: ParDoks,
 	dbUrl: string,
 	dryRun: boolean,
+	allowDeletion: boolean,
 ) {
 	const sql = connectDB(dbUrl);
 
@@ -73,19 +74,21 @@ export async function applyDiff(
 				process.exit(0);
 			}
 		} else {
-			// Deleting Vorgangs in database
-			if (remoteVorgangsToDelete.length === 0) {
-				console.log("No Vorgangs to delete in database...");
-			} else {
-				console.log(`Deleting Vorgangs in database...`);
-				const progressBarDelete = new progress(":bar :current/:total", {
-					total: remoteVorgangsToDelete.length,
-				});
-				for (const vorgang of remoteVorgangsToDelete) {
-					await sql`delete from vorgang where vnr = ${vorgang.vnr}`;
-					progressBarDelete.tick();
+			if (allowDeletion) {
+				// Deleting Vorgangs in database
+				if (remoteVorgangsToDelete.length === 0) {
+					console.log("No Vorgangs to delete in database...");
+				} else {
+					console.log(`Deleting Vorgangs in database...`);
+					const progressBarDelete = new progress(":bar :current/:total", {
+						total: remoteVorgangsToDelete.length,
+					});
+					for (const vorgang of remoteVorgangsToDelete) {
+						await sql`delete from vorgang where vnr = ${vorgang.vnr}`;
+						progressBarDelete.tick();
+					}
+					progressBarDelete.terminate();
 				}
-				progressBarDelete.terminate();
 			}
 
 			// Adding Vorgangs to database

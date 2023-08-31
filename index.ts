@@ -42,6 +42,9 @@ try {
 			"dry-run": {
 				type: "boolean",
 			},
+			"allow-deletion": {
+				type: "boolean",
+			},
 		},
 	});
 
@@ -73,7 +76,12 @@ try {
 			console.error("No database url provided via flag --database-url");
 			process.exit(1);
 		}
-		await applyDiff(json, values["database-url"]!, values["dry-run"]!);
+		await applyDiff(
+			json,
+			values["database-url"]!,
+			values["dry-run"]!,
+			values["allow-deletion"]!,
+		);
 		process.exit(0);
 	} else {
 		if (!values["write-to-db"]) {
