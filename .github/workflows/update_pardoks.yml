@@ -1,9 +1,6 @@
 name: Apply PARDOK XML Diff to DB
 
 on:
-  push:
-    branches:
-      - "feat/diff-ci" # for testing, remove later
   workflow_dispatch: {}
   repository_dispatch:
     types: [pardok_diff_apply]
