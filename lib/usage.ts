@@ -11,6 +11,8 @@ Options:
 -p, --pretty\t\t\tPretty-print the output JSON (only if not wirting to db)
 -v, --version\t\t\tPrint the version number and exit 0
 -w, --write-to-db\t\tWrite the parsed data to the database
+-u, --update-db\t\tUpdate the database based on a newer XML
+--dry-run\t\tRuns the update-db script without committing the changes to the database, see output to check which Vorgangs would be added or deleted
 
 Examples:
 
@@ -24,6 +26,10 @@ Write data to json file and pretty print it
 
 \tnpx tsx index.ts --pretty --file data/pardok-wp19.xml > data/pardok-wp19.json
 
+--- 
+
+Update database based on a newer XML:
+\tnpx tsx index.ts -f wp19-new.xml -d postgres://postgres:postgres@localhost:54322/postgres --update-db
 `,
 	);
 	process.exit(0);

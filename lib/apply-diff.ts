@@ -4,7 +4,11 @@ import { ParDoks } from "./common.js";
 import { connectDB } from "./sql.js";
 import { insertVorgangs } from "./write-to-db.js";
 
-export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
+export async function applyDiff(
+	newParDoks: ParDoks,
+	dbUrl: string,
+	dryRun: boolean,
+) {
 	const sql = connectDB(dbUrl);
 
 	try {
@@ -21,7 +25,7 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 
 		if (newPardoksUpdatedAt < remoteUpdatedAt) {
 			throw new Error(
-				"Export update time in database is more recent than local update time. Refusing to update.",
+				`Export update time in database ${remoteUpdatedAt} is more recent than local update time ${newPardoksUpdatedAt}. Refusing to update.`,
 			);
 		}
 
@@ -60,31 +64,41 @@ export async function applyDiff(newParDoks: ParDoks, dbUrl: string) {
 			);
 		});
 
-		// Deleting Vorgangs in database
-		if (remoteVorgangsToDelete.length === 0) {
-			console.log("No Vorgangs to delete in database...");
-		} else {
-			console.log(`Deleting Vorgangs in database...`);
-			const progressBarDelete = new progress(":bar :current/:total", {
-				total: remoteVorgangsToDelete.length,
-			});
-			for (const vorgang of remoteVorgangsToDelete) {
-				await sql`delete from vorgang where vnr = ${vorgang.vnr}`;
-				progressBarDelete.tick();
+		if (dryRun) {
+			console.log(`${remoteVorgangsToDelete.length} Vorgangs to delete`);
+			console.log(`${localVorgangsToAddToRemote.length} Vorgangs to add`);
+			if (remoteVorgangsToDelete.length > 0) {
+				process.exit(1);
+			} else {
+				process.exit(0);
 			}
-			progressBarDelete.terminate();
-		}
-
-		// Adding Vorgangs to database
-		if (localVorgangsToAddToRemote.length === 0) {
-			console.log("No Vorgangs to add to database...");
 		} else {
-			console.log(`Adding local Vorgangs to database...`);
-			await insertVorgangs(localVorgangsToAddToRemote, dbExport[0].id, dbUrl);
-		}
+			// Deleting Vorgangs in database
+			if (remoteVorgangsToDelete.length === 0) {
+				console.log("No Vorgangs to delete in database...");
+			} else {
+				console.log(`Deleting Vorgangs in database...`);
+				const progressBarDelete = new progress(":bar :current/:total", {
+					total: remoteVorgangsToDelete.length,
+				});
+				for (const vorgang of remoteVorgangsToDelete) {
+					await sql`delete from vorgang where vnr = ${vorgang.vnr}`;
+					progressBarDelete.tick();
+				}
+				progressBarDelete.terminate();
+			}
 
-		// Set new update time to export
-		await sql`update export set aktualisiert = ${newParDoks.Export.$.aktualisiert} where id = ${dbExport[0].id}`;
+			// Adding Vorgangs to database
+			if (localVorgangsToAddToRemote.length === 0) {
+				console.log("No Vorgangs to add to database...");
+			} else {
+				console.log(`Adding local Vorgangs to database...`);
+				await insertVorgangs(localVorgangsToAddToRemote, dbExport[0].id, dbUrl);
+			}
+
+			// Set new update time to export
+			await sql`update export set aktualisiert = ${newParDoks.Export.$.aktualisiert} where id = ${dbExport[0].id}`;
+		}
 	} catch (error) {
 		console.error(error);
 		process.exit(1);

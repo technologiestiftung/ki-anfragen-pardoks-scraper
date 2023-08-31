@@ -39,6 +39,9 @@ try {
 				type: "string",
 				short: "f",
 			},
+			"dry-run": {
+				type: "boolean",
+			},
 		},
 	});
 
@@ -70,7 +73,7 @@ try {
 			console.error("No database url provided via flag --database-url");
 			process.exit(1);
 		}
-		await applyDiff(json, values["database-url"]!);
+		await applyDiff(json, values["database-url"]!, values["dry-run"]!);
 		process.exit(0);
 	} else {
 		if (!values["write-to-db"]) {
