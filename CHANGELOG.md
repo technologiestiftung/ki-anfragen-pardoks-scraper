@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.2...v1.3.0) (2023-09-11)
+
+
+### Features
+
+* conditional updates ([cbc836a](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/cbc836ac2cab31cd16ea0dec77f235284c5053c1))
+
 ## [1.2.2](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.1...v1.2.2) (2023-09-11)
 
 
