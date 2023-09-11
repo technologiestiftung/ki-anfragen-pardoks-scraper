@@ -39,6 +39,12 @@ try {
 				type: "string",
 				short: "f",
 			},
+			"dry-run": {
+				type: "boolean",
+			},
+			"allow-deletion": {
+				type: "boolean",
+			},
 		},
 	});
 
@@ -70,7 +76,12 @@ try {
 			console.error("No database url provided via flag --database-url");
 			process.exit(1);
 		}
-		await applyDiff(json, values["database-url"]!);
+		await applyDiff(
+			json,
+			values["database-url"]!,
+			values["dry-run"]!,
+			values["allow-deletion"]!,
+		);
 		process.exit(0);
 	} else {
 		if (!values["write-to-db"]) {
@@ -115,17 +126,16 @@ try {
 			//@ts-ignore
 			if (error.code === "ERR_PARSE_ARGS_UNEXPECTED_POSITIONAL") {
 				console.error(error.message);
-				process.exit(1);
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				//@ts-ignore
 			} else if (error.code === "ERR_PARSE_ARGS_INVALID_OPTION_VALUE") {
 				console.error(error.message);
-
-				process.exit(1);
 			} else {
 				console.error(error);
 			}
 		}
+		process.exit(1);
 	}
 	usage();
+	process.exit(1); // Exit with error for CI usage
 }
