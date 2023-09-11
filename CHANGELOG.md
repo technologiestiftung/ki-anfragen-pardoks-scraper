@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.0...v1.2.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* yaml syntax ([5479a27](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/5479a273651a17b618afbe6735f261f0d94867e4))
+
 # [1.2.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.1.0...v1.2.0) (2023-09-11)
 
 

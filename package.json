@@ -1,6 +1,6 @@
 {
 	"name": "@technologiestiftung/ki-anfrage-docs-scraper",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "",
 	"main": "index.js",
 	"type": "module",
