@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.1.0...v1.2.0) (2023-09-11)
+
+
+### Features
+
+* github workflow for updating PARDOKS ([#6](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/issues/6)) ([a583bb4](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/a583bb4de9afae16cdceea1767e9ca2acd9b7915))
+
 # [1.1.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.0.1...v1.1.0) (2023-08-30)
 
 
