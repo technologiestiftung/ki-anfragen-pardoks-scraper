@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.1...v1.2.2) (2023-09-11)
+
+
+### Bug Fixes
+
+* dispatch ([ec736c2](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/ec736c2c1cb61534df435302d801659e0b417af1))
+
 ## [1.2.1](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.0...v1.2.1) (2023-09-11)
 
 
