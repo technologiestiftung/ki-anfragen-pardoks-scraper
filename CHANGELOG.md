@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.3.0...v1.3.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* if else ([99ff2ed](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/99ff2ed1e3bd4e61fc9fd019cdce0a726b8d93ac))
+
 # [1.3.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.2.2...v1.3.0) (2023-09-11)
 
 
