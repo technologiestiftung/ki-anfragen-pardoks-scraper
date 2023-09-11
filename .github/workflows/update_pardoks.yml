@@ -1,7 +1,9 @@
 name: Apply PARDOK XML Diff to DB
 
 on:
-  push: main
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [pardok_diff_apply]
 
 jobs:
   pardok-xml-diff:
