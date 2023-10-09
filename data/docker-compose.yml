@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   db:
-    image: postgres:15.1
+    image: postgres:16.0
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
