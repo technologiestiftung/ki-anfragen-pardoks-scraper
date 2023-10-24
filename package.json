@@ -15,15 +15,15 @@
 	},
 	"devDependencies": {
 		"@technologiestiftung/semantic-release-config": "1.2.4",
-		"@types/node": "20.8.4",
-		"@types/progress": "2.0.5",
-		"@types/xml2js": "0.4.12",
-		"@typescript-eslint/eslint-plugin": "6.7.5",
-		"@typescript-eslint/parser": "6.7.5",
-		"eslint": "8.51.0",
+		"@types/node": "20.8.8",
+		"@types/progress": "2.0.6",
+		"@types/xml2js": "0.4.13",
+		"@typescript-eslint/eslint-plugin": "6.9.0",
+		"@typescript-eslint/parser": "6.9.0",
+		"eslint": "8.52.0",
 		"eslint-config-prettier": "9.0.0",
 		"prettier": "3.0.3",
-		"tsx": "3.13.0",
+		"tsx": "3.14.0",
 		"typescript": "5.2.2"
 	},
 	"eslintConfig": {
