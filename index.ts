@@ -7,6 +7,7 @@ import { write2DB } from "./lib/write-to-db.js";
 import { usage } from "./lib/usage.js";
 import { parseXML2JSON } from "./lib/parse-xml-to-json.js";
 import { applyDiff } from "./lib/apply-diff.js";
+import { applyRedNumberReportsDiff } from "./lib/apply-red-number-reports-diff.js";
 
 try {
 	const { values } = parseArgs({
@@ -76,12 +77,13 @@ try {
 			console.error("No database url provided via flag --database-url");
 			process.exit(1);
 		}
-		await applyDiff(
-			json,
-			values["database-url"]!,
-			values["dry-run"]!,
-			values["allow-deletion"]!,
-		);
+		// await applyDiff(
+		// 	json,
+		// 	values["database-url"]!,
+		// 	values["dry-run"]!,
+		// 	values["allow-deletion"]!,
+		// );
+		await applyRedNumberReportsDiff(values["database-url"]!);
 		process.exit(0);
 	} else {
 		if (!values["write-to-db"]) {
