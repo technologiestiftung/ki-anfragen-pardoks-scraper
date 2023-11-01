@@ -1,7 +1,10 @@
 import { connectDB } from "./sql.js";
 import progress from "progress";
 
-export async function applyRedNumberReportsDiff(databaseUrl: string) {
+export async function applyRedNumberReportsDiff(
+	databaseUrl: string,
+	allowDeletion: boolean,
+) {
 	// Get all relevant red number processes from API
 	console.log("Fetching all red number processes from API...");
 	const sql = connectDB(databaseUrl);
@@ -62,25 +65,27 @@ export async function applyRedNumberReportsDiff(databaseUrl: string) {
 	console.log(`---> Found ${allDatabaseProcesses.length} in database`);
 
 	// Delete all processes from DB which are not (anymore) present in the API response
-	const databaseProcessesToDelete = allDatabaseProcesses.filter((dItem) => {
-		return (
-			allApiProcesses.filter((item) => item.processId === dItem.process_id)
-				.length === 0
+	if (allowDeletion) {
+		const databaseProcessesToDelete = allDatabaseProcesses.filter((dItem) => {
+			return (
+				allApiProcesses.filter((item) => item.processId === dItem.process_id)
+					.length === 0
+			);
+		});
+		console.log(
+			`Deleting ${databaseProcessesToDelete.length} processes from database...`,
 		);
-	});
-	console.log(
-		`Deleting ${databaseProcessesToDelete.length} processes from database...`,
-	);
-	progressBar = new progress(":bar :current/:total", {
-		total: databaseProcessesToDelete.length,
-	});
-	for (let idx = 0; idx < databaseProcessesToDelete.length; idx++) {
-		const element = databaseProcessesToDelete[idx];
-		await sql`DELETE FROM red_number_processes where process_id = ${element.process_id}`;
-		progressBar.tick();
+		progressBar = new progress(":bar :current/:total", {
+			total: databaseProcessesToDelete.length,
+		});
+		for (let idx = 0; idx < databaseProcessesToDelete.length; idx++) {
+			const element = databaseProcessesToDelete[idx];
+			await sql`DELETE FROM red_number_processes where process_id = ${element.process_id}`;
+			progressBar.tick();
+		}
+		progressBar.terminate();
 	}
-	progressBar.terminate();
-
+	
 	// Add all processes to DB which are present in API response
 	const apiProcessesToAdd = allApiProcesses.filter((item) => {
 		return (

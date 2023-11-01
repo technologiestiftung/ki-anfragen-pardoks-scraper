@@ -83,7 +83,7 @@ try {
 			values["dry-run"]!,
 			values["allow-deletion"]!,
 		);
-		await applyRedNumberReportsDiff(values["database-url"]!);
+		await applyRedNumberReportsDiff(values["database-url"]!, values["allow-deletion"]!);
 		process.exit(0);
 	} else {
 		if (!values["write-to-db"]) {
