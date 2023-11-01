@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.4.0...v1.4.1) (2023-11-01)
+
+
+### Bug Fixes
+
+* wrong return code ([fbcccd6](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/fbcccd6c56117cfb758282cae063e8bf7f210874))
+
 # [1.4.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.3.1...v1.4.0) (2023-11-01)
 
 
