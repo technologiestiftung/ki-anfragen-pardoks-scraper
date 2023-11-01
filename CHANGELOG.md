@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.3.1...v1.4.0) (2023-11-01)
+
+
+### Features
+
+* scrape red number reports via API ([#15](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/issues/15)) ([a44f646](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/commit/a44f64608bf21d2511decead7da651af813307d6))
+
 ## [1.3.1](https://github.com/technologiestiftung/ki-anfragen-pardoks-scraper/compare/v1.3.0...v1.3.1) (2023-09-11)
 
 
