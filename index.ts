@@ -77,12 +77,12 @@ try {
 			console.error("No database url provided via flag --database-url");
 			process.exit(1);
 		}
-		// await applyDiff(
-		// 	json,
-		// 	values["database-url"]!,
-		// 	values["dry-run"]!,
-		// 	values["allow-deletion"]!,
-		// );
+		await applyDiff(
+			json,
+			values["database-url"]!,
+			values["dry-run"]!,
+			values["allow-deletion"]!,
+		);
 		await applyRedNumberReportsDiff(values["database-url"]!);
 		process.exit(0);
 	} else {
