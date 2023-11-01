@@ -68,11 +68,7 @@ export async function applyDiff(
 		if (dryRun) {
 			console.log(`${remoteVorgangsToDelete.length} Vorgangs to delete`);
 			console.log(`${localVorgangsToAddToRemote.length} Vorgangs to add`);
-			if (remoteVorgangsToDelete.length > 0) {
-				process.exit(1);
-			} else {
-				process.exit(0);
-			}
+			process.exit(0)
 		} else {
 			if (allowDeletion) {
 				// Deleting Vorgangs in database
